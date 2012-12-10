@@ -45,67 +45,6 @@
         
         // Send ping email
         logThat('Sending ping email', 1);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         $sendStatus = mail(BB_TEST_USER_EMAIL, 'ID:' . ($initUserMsgTotalProc + 1), '');
         //$sendStatus = TRUE; // For Testing!
         if ($sendStatus == TRUE) {
@@ -159,7 +98,7 @@
                     }
                     if (($checkCount * IMAP_RECHECK_INTERVAL) > IMAP_RECHECK_ALERT_TIME) {
                         logThat('Sending alert - Mail has not arived in GW mailbox after ' . round(($checkCount * IMAP_RECHECK_INTERVAL) / 60, 2) . ' min', 1);
-                        $alertMessage = $prowl->add(PROWL_APP_NAME, 'SMTP -> MailBox', 2, 'Email has not arived in mailbox after ' . round(($checkCount * IMAP_RECHECK_INTERVAL) / 60, 2) . ' min.', NULL);
+                        $alertMessage = $prowl->add(PROWL_APP_NAME, 'SMTP -> MailBox | ' . date("Y-m-d H:i:s"), 2, 'Email has not arived in mailbox after ' . round(($checkCount * IMAP_RECHECK_INTERVAL) / 60, 2) . ' min.', NULL);
                         $msgFound = 0;
                         
                     }
@@ -188,13 +127,13 @@
                         }
                         if (($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) > BB_CHECK_PHONE_ALERT_TIME and !isset($alertCount)) {
                             logThat('Sending alert - Mail with UID ' . $msgFoundUID . ' has not arived on BlackBerry phone after ' . round(($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) / 60, 2) . ' min', 1);
-                            $alertMessage = $prowl->add(PROWL_APP_NAME, 'MailBox -> BlackBerry', 2, 'Email with UID ' . $msgFoundUID . ' has not arived on BlackBerry phone after ' . round(($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) / 60, 2) . ' min.', NULL);
+                            $alertMessage = $prowl->add(PROWL_APP_NAME, 'MailBox -> BlackBerry | ' . date("Y-m-d H:i:s"), 2, 'Email with UID ' . $msgFoundUID . ' has not arived on BlackBerry phone after ' . round(($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) / 60, 2) . ' min.', NULL);
                             $alertCount = 1;
                         }
                         else if (($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) > BB_CHECK_PHONE_ALERT_TIME and isset($alertCount)) {
                             if (($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) > (BB_CHECK_PHONE_ALERT_TIME * ($alertCount + 1))) {
                                 logThat('Sending alert ' . ($alertCount + 1) . ' - Mail with UID ' . $msgFoundUID . ' has still not arived on BlackBerry phone after ' . round(($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) / 60, 2) . ' min', 1);
-                                $alertMessage = $prowl->add(PROWL_APP_NAME, 'MailBox -> BlackBerry', 2, 'Email with UID ' . $msgFoundUID . ' has still not arived on BlackBerry phone after ' . round(($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) / 60, 2) . ' min. Alert Count : ' . ($alertCount + 1), NULL);
+                                $alertMessage = $prowl->add(PROWL_APP_NAME, 'MailBox -> BlackBerry | ' . date("Y-m-d H:i:s"), 2, 'Email with UID ' . $msgFoundUID . ' has still not arived on BlackBerry phone after ' . round(($phoneCheckCount * BB_CHECK_PHONE_DELIVERY_INTERVAL) / 60, 2) . ' min. Alert Count : ' . ($alertCount + 1), NULL);
                                 $alertCount = ($alertCount + 1);
                             }
                             else {}
